@@ -1,0 +1,122 @@
+<!-- main display, weather info, enter new location / show list of favorite locations etc. -->
+
+
+<%- include("partials/header.ejs") %>
+  <br>
+<body id="weatherBody">
+  <br>
+
+<div class="row justify-content-center">
+  <div class="col-md-9 col-lg-7 col-xl-5">
+    <div id="Wcustom-container" class="custom-container">
+  <h1 class="display-4 text-primary-emphasis">Live Weather Statistics</h1><br>
+  
+  <!-- fetch weather by zip code -->
+  <form id="location-form">
+    Enter Zip Code:
+    <input type="text" id="location-input" placeholder="Zip Code" value="<%= zipCode || '' %>" required>
+    <button class="btn btn-sm btn-outline-primary" type="submit">Get Weather</button>
+    <div id="error-message"></div>
+  </form>
+    <br>
+  
+  <!-- display weather -->
+<div class="text-center">
+  <div <h5 class="display-6" id="weather-result">
+    <h2 class="display-6" id="location-display"></h2>
+    <div id="temp-display"></h4></div><br>
+    <div class="display-6" id="additional-info"></div>
+  </div>
+</div>  
+  
+  <!-- fav locations  -->
+    <h2>Favorite Locations:</h2>
+    <form action="/location/switch" method="POST">
+      <select name="locationId" required>
+        <!-- Blank option as the first choice -->
+        <option value="" disabled selected>Select a location...</option>
+        <% locations.forEach(function(location) { %>
+          <option value="<%= location.locationId %>"><%= location.zip %></option>
+        <% }); %>
+      </select>
+      <button class="btn btn-sm btn-outline-primary" type="submit">Get Favorite Location</button>
+    </form>
+    <br>
+
+
+<form id = "save-settings-form" method="POST" action="/location/new">
+<fieldset>
+  <legend>Choose settings:</legend>
+  <div>
+    <input type="checkbox" id="humidity" name="features" value="Humidity" <%= features.Humidity === 'Yes' ? 'checked' : '' %> />
+    <label for="humidity">Humidity</label>
+  </div>
+  <div>
+    <input type="checkbox" id="windSpeed" name="features" value="Wind" <%= features.Wind === 'Yes' ? 'checked' : '' %> />
+    <label for="windSpeed">Wind Speed</label>
+  </div>
+  <div>
+    <input type="checkbox" id="pressure" name="features" value="Pressure" <%= features.Pressure  === 'Yes' ? 'checked' : '' %> />
+    <label for="pressure">Pressure</label>
+  </div>
+  <div>
+    <input type="checkbox" id="visibility" name="features" value="Visibility" <%= features.Visibility === 'Yes' ? 'checked' : '' %> />
+    <label for="visibility">Visibility</label>
+  </div>
+  <div>
+    <input type="checkbox" id="sunrise" name="features" value="Sunrise" <%= features.Sunrise  === 'Yes' ? 'checked' : '' %> />
+    <label for="sunrise">Sunrise</label>
+  </div>
+  <div>
+    <input type="checkbox" id="sunset" name="features" value="Sunset" <%= features.Sunset  === 'Yes' ? 'checked' : '' %> />
+    <label for="sunset">Sunset</label>
+  </div>
+  <div>
+    <input type="checkbox" id="description" name="features" value="Description" <%= features.Description  === 'Yes' ? 'checked' : '' %> />
+    <label for="description">Description</label>
+  </div>
+  <div>
+    <input type="checkbox" id="cloudiness" name="features" value="Cloudiness" <%= features.Cloudiness  === 'Yes' ? 'checked' : '' %> />
+    <label for="cloudiness">Cloudiness</label>
+  </div>
+</fieldset>
+<br>
+<fieldset>
+  <legend>Select temperature unit:</legend>
+  <div>
+    <input type="radio" id="F" name="features" value="F" <%= features.Fahrenheit === 'Yes' ? 'checked' : '' %> />
+    <label for="F">Fahrenheit</label>
+  </div>
+  <div>
+    <input type="radio" id="C" name="features" value="C" <%= features.Celsius === 'Yes' ? 'checked' : '' %> />
+    <label for="C">Celsius</label>
+  </div>
+</fieldset>
+<br>
+<input type="hidden" name="zipCode" id="hidden-zipCode">
+<button class="btn btn-sm btn-outline-primary" type="submit">Save as new Favorite Location</button>
+</form>
+
+          
+  <!-- form for updating account details -->
+  <br>
+          
+  <form action="/account/update">
+    <button class="btn btn-outline-info" type="submit">Update Account</button>
+  </form><br>
+
+          </div>
+        </div>
+      </div> 
+          
+          <div class="text-center">
+            <% if (typeof message != "undefined"){ %>
+               <h3 id="message-box" class="text-success"><%=message%></h3>
+             <% } %>
+          </div>
+          
+  <script src="/js/weather.js"></script>
+          
+  <%- include("partials/footer.ejs") %>
+    
+ </body>

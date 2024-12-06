@@ -1,0 +1,45 @@
+  <%- include("partials/header.ejs") %>
+
+  <body id="indexBody" class="bg-light">
+    <div class="container mt-3">
+      <!-- login screen -->
+      <h1 class="text-center hero-section m-3 py-3 display-4">Welcome</h1>
+
+      <!-- form for login -->
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-7 col-xl-5">
+          <div class="card shadow-sm p-4 mb-4">
+            <h2 class="text-center">Login</h2>
+            <form action="/login" method="POST">
+              <div class="mb-3">
+                <label for="userName" class="form-label">Username:</label>
+                 <input type="text" name="userName" id="userName" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password:</label>
+                <input type="password" name="password" id="password" class="form-control" required>
+            </div>
+              <div class="text-center">
+                <button type="submit" id="login" class="btn btn-sm btn-outline-primary">Login</button>
+                </div>
+              </form>
+          </div>
+         </div>
+      </div>
+
+        <!-- form for creating a new account -->
+        <div class="text-center mb-4">
+          <form action="/account/create">
+            <button class="btn btn-outline-success" type="submit" >Create Account</button>
+          </form>
+         </div>
+
+        <div class="text-center">
+          <% if (typeof message != "undefined"){ %>
+             <h3 class="text-danger"><%=message%></h3>
+           <% } %>
+        </div>
+      </div>
+
+      <%- include("partials/footer.ejs") %>
+     </body>

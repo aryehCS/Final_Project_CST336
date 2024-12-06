@@ -1,0 +1,41 @@
+<!-- update account information screen -->
+<%- include("partials/header.ejs") %>
+  
+<body id="updateBody" class="bg-light text-center">
+
+  
+<form id = "update-form" action = "/account/update" method = "POST">
+  <div>
+      <div id="update-container" class="custom-container">
+    <h1 class="display-4"> Update Account </h1><br>
+  Username:
+  <input type="text" name="userName" value="<%=userInfo[0].userName%>"><br><br>
+  Password:
+  <input type="text" name="password" value="<%=userInfo[0].password%>"><br><br>
+  Delete a location:<br>
+  <select id = "zip">
+    <!-- Blank option as the first choice -->
+    <option value="" disabled selected>Select a location...</option>
+    <% locations.forEach(function(location) { %>
+      <option value="<%= location.locationId %>"><%= location.zip %></option>
+    <% }); %>
+   </select>
+  <br><br>
+      <input type="hidden" name="locationId" id="hidden-locationId">
+  <button class="btn btn-outline-info" type ="submit">Update Account</button>
+  
+    </form>
+  </div>
+   </div>
+  </div>
+      
+  <div class="text-center">
+     <% if (typeof message != "undefined"){ %>
+        <h3 class="text-success"><%=message%></h3>
+     <% } %>
+
+       <script src="/js/location.js"></script>
+
+        <%- include("partials/footer.ejs") %>
+   </body>
+ 
